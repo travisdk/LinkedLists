@@ -99,12 +99,23 @@
 
         public void Move(int from, int to)
         {
+            // Vil koden kunne virke hvis listen er tom ?
+            // En Guard Clause (IsEmpty) ?
+
+            // Du fanger edge cases men fejlbeskeden er måske ikke så informativ 😉
+            // Overvej om du vil have >= eller om det bør være >
+            // Count er antallet (og starter med at tælle fra 1) - index er positionen (og starter med at tælle fra 0)
             if (from < 0 || from >= Count || to < 0 || to >= Count)
             {
                 throw new IndexOutOfRangeException("Noget er galt med \"from\" og/eller \"to\" værdierne");
             }
 
+            // Antagelse: to er højere end from
+            // Kan man anvende det samme "to index" når en node bliver "klippet" ud af den linkedede liste ?
+            // Bør det være uændret, en højere eller en lavere ?
+            // Holder antagelsen om at to er højere end from altid ?
             var fromNode = RemoveAt(from);
+            // Med ! angiver du at der med garanti er data. Kan en node oprettes med null som "data" ?
             Add(to, fromNode!.Data);
         }
 
