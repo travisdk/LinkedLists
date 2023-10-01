@@ -5,19 +5,18 @@
         static void Main(string[] args)
         {
             MyLinkedList myList = new MyLinkedList();
+
             myList.Add("Henrik");
             myList.Add("Stine");
-            myList.Print();
-            myList.RemoveAt(1);
-            myList.Add("Børge");
             myList.Add("Per");
-            myList.Add("Claus");
-            myList.Add("Jørgen");
+            myList.Add("Lone");
+            myList.Add("Hans");
             myList.Print();
-            myList.Move(2, 4);
+            myList.Move(2, 0);
             myList.Print();
-            myList.Move(0, 3);
-            myList.Print();
+
+
+
         }
     }
 }
