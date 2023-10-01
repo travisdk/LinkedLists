@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LinkedLists
+﻿namespace LinkedLists
 {
     internal class MyLinkedList
     {
-
-        private Node _head;
+        private Node? _head;
         public int Count { get; private set; }
         public bool IsEmpty => Count == 0;
+
         public MyLinkedList()
         {
             Count = 0;
@@ -21,7 +14,6 @@ namespace LinkedLists
 
         public void Add(int index, object data)
         {
-          
             if (index < 0)
             {
                 throw new IndexOutOfRangeException($"Er du helt sikker? \t Index er {index}");
@@ -33,11 +25,11 @@ namespace LinkedLists
             Node current = _head;
             if (IsEmpty || index == 0)
             {
+                // Overvej om kommentaren: 'skubbet ind før eksisterende "head"' er det der virkeligt sker ?
                 _head = new Node(data, _head); // skubbet ind før eksisterende "head"
             }
             else
             {
-                
                 for (int i = 0; i < index - 1; i++)
                 {
                     current = current.Next;
@@ -52,12 +44,11 @@ namespace LinkedLists
             Add(Count, data);
         }
 
-
         public Node? RemoveAt(int index)
         {
-
             Node removedNode = null;
-        
+
+            // Index kunne vel også ligge udenfor listen i den "positive ende"
             if (index < 0)
             {
                 throw new IndexOutOfRangeException($"Er du helt sikker? \t Index er {index}");
@@ -71,13 +62,14 @@ namespace LinkedLists
             Node current = _head;
             if (index == 0)
             {
+                // Hvad menes med kommentaren: "head is removed" ? 
+                // Som det er nu så sættes removedNode som en reference til _head.
+                // _head forbliver vel den samme ? 🤔
                 removedNode = _head; // head is removed
                 _head = current.Next;
-                
             }
             else
             {
-            
                 for (int i = 0; i < index - 1; i++)
                 {
                     current = current.Next;
@@ -89,30 +81,46 @@ namespace LinkedLists
             return removedNode;
         }
 
-        public void ReplaceAt(int index, object data) {
-
+        public void ReplaceAt(int index, object data)
+        {
+            // Guard Clause for en tom liste ?
             if (index < 0 || index >= Count) // Count er ikke "nul-baseret" og derfor "større end eller LIG med"
             {
                 throw new IndexOutOfRangeException("Er du helt sikker?");
             }
             Node current = _head;
+            // Pas lidt på med at anvende en operator (index--) i et boolsk udtryk (index-- > 0)
+            // Operatoren vil blive kørt før det boolske udtryk - har index så den værdi som du forventer eller er den en lavere ?
+            // Måske undersøge edge cases - start og slut af løkken ?
             while (index-- > 0)
             {
                 current = current.Next;
             }
             current.Data = data;
-
         }
+
         public void Move(int from, int to)
         {
-            if (from < 0 || from >= Count || to < 0 || to >= Count)  
+            // Vil koden kunne virke hvis listen er tom ?
+            // En Guard Clause (IsEmpty) ?
+
+            // Du fanger edge cases men fejlbeskeden er måske ikke så informativ 😉
+            // Overvej om du vil have >= eller om det bør være >
+            // Count er antallet (og starter med at tælle fra 1) - index er positionen (og starter med at tælle fra 0)
+            if (from < 0 || from >= Count || to < 0 || to >= Count)
             {
                 throw new IndexOutOfRangeException("Noget er galt med \"from\" og/eller \"to\" værdierne");
             }
 
+            // Antagelse: to er højere end from
+            // Kan man anvende det samme "to index" når en node bliver "klippet" ud af den linkedede liste ?
+            // Bør det være uændret, en højere eller en lavere ?
+            // Holder antagelsen om at to er højere end from altid ?
             var fromNode = RemoveAt(from);
+            // Med ! angiver du at der med garanti er data. Kan en node oprettes med null som "data" ?
             Add(to, fromNode!.Data);
         }
+
         public void Print()
         {
             Node current = _head;

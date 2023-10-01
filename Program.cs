@@ -18,8 +18,6 @@
             myList.Print();
             myList.Move(0, 3);
             myList.Print();
-
-
         }
     }
 }
