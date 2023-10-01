@@ -14,7 +14,6 @@
 
         public void Add(int index, object data)
         {
-
             if (index < 0)
             {
                 throw new IndexOutOfRangeException($"Er du helt sikker? \t Index er {index}");
@@ -26,11 +25,11 @@
             Node current = _head;
             if (IsEmpty || index == 0)
             {
+                // Overvej om kommentaren: 'skubbet ind før eksisterende "head"' er det der virkeligt sker ?
                 _head = new Node(data, _head); // skubbet ind før eksisterende "head"
             }
             else
             {
-
                 for (int i = 0; i < index - 1; i++)
                 {
                     current = current.Next;
