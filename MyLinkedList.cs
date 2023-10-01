@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LinkedLists
+﻿namespace LinkedLists
 {
     internal class MyLinkedList
     {
-
-        private Node _head;
+        private Node? _head;
         public int Count { get; private set; }
         public bool IsEmpty => Count == 0;
+
         public MyLinkedList()
         {
             Count = 0;
@@ -21,7 +14,7 @@ namespace LinkedLists
 
         public void Add(int index, object data)
         {
-          
+
             if (index < 0)
             {
                 throw new IndexOutOfRangeException($"Er du helt sikker? \t Index er {index}");
@@ -37,7 +30,7 @@ namespace LinkedLists
             }
             else
             {
-                
+
                 for (int i = 0; i < index - 1; i++)
                 {
                     current = current.Next;
@@ -52,12 +45,11 @@ namespace LinkedLists
             Add(Count, data);
         }
 
-
         public Node? RemoveAt(int index)
         {
 
             Node removedNode = null;
-        
+
             if (index < 0)
             {
                 throw new IndexOutOfRangeException($"Er du helt sikker? \t Index er {index}");
@@ -73,11 +65,11 @@ namespace LinkedLists
             {
                 removedNode = _head; // head is removed
                 _head = current.Next;
-                
+
             }
             else
             {
-            
+
                 for (int i = 0; i < index - 1; i++)
                 {
                     current = current.Next;
@@ -89,7 +81,8 @@ namespace LinkedLists
             return removedNode;
         }
 
-        public void ReplaceAt(int index, object data) {
+        public void ReplaceAt(int index, object data)
+        {
 
             if (index < 0 || index >= Count) // Count er ikke "nul-baseret" og derfor "større end eller LIG med"
             {
@@ -103,9 +96,10 @@ namespace LinkedLists
             current.Data = data;
 
         }
+
         public void Move(int from, int to)
         {
-            if (from < 0 || from >= Count || to < 0 || to >= Count)  
+            if (from < 0 || from >= Count || to < 0 || to >= Count)
             {
                 throw new IndexOutOfRangeException("Noget er galt med \"from\" og/eller \"to\" værdierne");
             }
@@ -113,6 +107,7 @@ namespace LinkedLists
             var fromNode = RemoveAt(from);
             Add(to, fromNode!.Data);
         }
+
         public void Print()
         {
             Node current = _head;
