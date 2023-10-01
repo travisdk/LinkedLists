@@ -42,6 +42,9 @@
 
         public void Add(object data)
         {
+            // Hvis Add(Count, data); bliver kørt som den første kommando vil det så virke ?
+            // Count har ikke eksplicit fået sat en default værdi i klassen.
+            // Det er muligt at int automatisk får tildelt tallet 0 (det mener jeg faktisk den gør)
             Add(Count, data);
         }
 
