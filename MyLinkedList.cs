@@ -47,9 +47,9 @@
 
         public Node? RemoveAt(int index)
         {
-
             Node removedNode = null;
 
+            // Index kunne vel også ligge udenfor listen i den "positive ende"
             if (index < 0)
             {
                 throw new IndexOutOfRangeException($"Er du helt sikker? \t Index er {index}");
@@ -63,13 +63,14 @@
             Node current = _head;
             if (index == 0)
             {
+                // Hvad menes med kommentaren: "head is removed" ? 
+                // Som det er nu så sættes removedNode som en reference til _head.
+                // _head forbliver vel den samme ? 🤔
                 removedNode = _head; // head is removed
                 _head = current.Next;
-
             }
             else
             {
-
                 for (int i = 0; i < index - 1; i++)
                 {
                     current = current.Next;
