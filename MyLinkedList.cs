@@ -83,18 +83,20 @@
 
         public void ReplaceAt(int index, object data)
         {
-
+            // Guard Clause for en tom liste ?
             if (index < 0 || index >= Count) // Count er ikke "nul-baseret" og derfor "større end eller LIG med"
             {
                 throw new IndexOutOfRangeException("Er du helt sikker?");
             }
             Node current = _head;
+            // Pas lidt på med at anvende en operator (index--) i et boolsk udtryk (index-- > 0)
+            // Operatoren vil blive kørt før det boolske udtryk - har index så den værdi som du forventer eller er den en lavere ?
+            // Måske undersøge edge cases - start og slut af løkken ?
             while (index-- > 0)
             {
                 current = current.Next;
             }
             current.Data = data;
-
         }
 
         public void Move(int from, int to)
